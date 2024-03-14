@@ -23,7 +23,7 @@ model User {
   name            String
   email           String
   phoneNumber     String
-  profilePicture  String
+  profilePicture      String
   bookings        Booking[]
   reviews         Review[]
 }
@@ -52,7 +52,7 @@ model Property {
   amenities       Amenity[]    // many-to-many
   bookings        Booking[]   // 1-to-many
   reviews         Review[]   // 1-to-many
-  host            Host @relation(fields: [hostId], references: [id]) // 1-to-many) with Property
+  host            Host     @relation(fields: [hostId], references: [id]) // 1-to-many) with Property
 }
 
 model Host {
@@ -62,7 +62,6 @@ model Host {
   name             String
   email            String
   phoneNumber      String
-  profilePicture   String
   pictureUrl       String
   aboutMe          String
   listings         Property[] // 1-to-many

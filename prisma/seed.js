@@ -22,7 +22,98 @@ async function main() {
     await prisma.user.upsert({
       where: { id: user.id },
       update: {},
-      create: user,
+      create: {
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        password: user.password,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        profilePicture: user.profilePicture,
+      },
+    });
+  }
+
+  //Create hosts
+  for (const host of hosts) {
+    await prisma.host.upsert({
+      where: { id: host.id },
+      update: {},
+      create: {
+        id: host.id,
+        username: host.username,
+        password: host.password,
+        name: host.name,
+        email: host.email,
+        phoneNumber: host.phoneNumber,
+        pictureUrl: host.pictureUrl,
+        aboutMe: host.aboutMe,
+        listings: {
+          connect: (host.listings ?? []).map((propertyId) => ({
+            id: propertyId,
+          })),
+        },
+      },
+    });
+  }
+
+  //Create amenities
+  for (const amenity of amenities) {
+    await prisma.amenity.upsert({
+      where: { id: amenity.id },
+      update: {},
+      create: {
+        id: amenity.id,
+        name: amenity.name,
+      },
+    });
+  }
+
+  //Create properties
+  for (const property of properties) {
+    await prisma.property.upsert({
+      where: { id: property.id },
+      update: {},
+      create: {
+        id: property.id,
+        title: property.title,
+        description: property.description,
+        location: property.location,
+        pricePerNight: property.pricePerNight,
+        bedroomCount: property.bedroomCount,
+        bathRoomCount: property.bathRoomCount,
+        maxGuestCount: property.maxGuestCount,
+        rating: property.rating,
+
+        // Connect to host
+        host: {
+          connect: { id: property.hostId },
+        },
+
+        // Connect to amenities
+        amenities: {
+          connect: (property.amenities ?? []).map((amenity) => ({
+            id: amenity.id,
+          })),
+        },
+
+        // many-to-many
+        // Connect to bookings
+        // bookings: {
+        //   connect: { id: property.id },
+        // },
+
+        bookings: {
+          connect: (property.bookings ?? []).map((booking) => booking.id),
+        },
+
+        // Connect to reviews
+        reviews: {
+          connect: (property.reviews ?? []).map((review) => ({
+            id: review.id,
+          })),
+        },
+      },
     });
   }
 
@@ -73,83 +164,6 @@ async function main() {
         property: {
           connect: { id: review.propertyId },
         },
-      },
-    });
-  }
-
-  //Create properties
-  for (const property of properties) {
-    await prisma.property.upsert({
-      where: { id: property.id },
-      update: {},
-      create: {
-        id: property.id,
-        title: property.title,
-        description: property.description,
-        location: property.location,
-        pricePerNight: property.pricePerNight,
-        bedroomCount: property.bedroomCount,
-        bathRoomCount: property.bathRoomCount,
-        maxGuestCount: property.maxGuestCount,
-        rating: property.rating,
-
-        // Connect to host
-        host: {
-          connect: { id: property.hostId },
-        },
-
-        // Connect to amenities
-        amenities: {
-          connect: property.amenities.map((amenity) => ({ id: amenity.id })),
-        },
-
-        // many-to-many
-        // Connect to bookings
-        // bookings: {
-        //   connect: { id: property.id },
-        // },
-
-        bookings: {
-          connect: { id: property.bookings.map((booking) => booking.id) },
-        },
-
-        // Connect to reviews
-        reviews: {
-          connect: property.reviews.map((review) => ({ id: review.id })),
-        },
-      },
-    });
-  }
-
-  //Create hosts
-  for (const host of hosts) {
-    await prisma.host.upsert({
-      where: { id: host.id },
-      update: {},
-      create: {
-        id: host.id,
-        username: host.username,
-        password: host.password,
-        name: host.name,
-        email: host.email,
-        phoneNumber: host.phoneNumber,
-        pictureUrl: host.pictureUrl,
-        aboutMe: host.aboutMe,
-        listings: {
-          connect: host.listings.map((propertyId) => ({ id: propertyId })),
-        },
-      },
-    });
-  }
-
-  //Create amenities
-  for (const amenity of amenities) {
-    await prisma.amenity.upsert({
-      where: { id: amenity.id },
-      update: {},
-      create: {
-        id: amenity.id,
-        name: amenity.name,
       },
     });
   }
