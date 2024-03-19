@@ -3,21 +3,21 @@ import { PrismaClient } from "@prisma/client";
 const updateHostById = async (id, updatedHost) => {
   const prisma = new PrismaClient();
 
-  const { listings, ...rest } = updatedHost;
+  // const { listings, ...rest } = updatedHost;
 
-  const updatedHost = await prisma.host.upsert({
+  const Host = await prisma.host.updateMany({
     where: { id },
-    update: {},
-    create: {
-      id,
-      ...rest,
-      listings: {
-        connect: listings.map((propertyId) => ({ id: propertyId })),
-      },
-    },
+    // update: {},
+    data:
+      // id,
+      // ...rest,
+      // listings: {
+      //   connect: listings.map((propertyId) => ({ id: propertyId })),
+      // },
+      updatedHost,
   });
 
-  return updatedHost;
+  return Host;
 };
 
 export default updateHostById;

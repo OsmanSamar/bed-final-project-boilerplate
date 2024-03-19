@@ -2,12 +2,12 @@ import { PrismaClient } from "@prisma/client";
 
 const createProperty = async (property) => {
   const prisma = new PrismaClient();
-
-  const createdProperty = await prisma.property.upsert({
-    where: { id: property.id },
-    update: {},
-    create: {
-      id: property.id,
+  console.log("createProperty function on line 5:", property);
+  const createdProperty = await prisma.property.create({
+    // where: { id: property.id },
+    // update: {},
+    data: {
+      // id: property.id,
       title: property.title,
       description: property.description,
       location: property.location,
@@ -21,17 +21,17 @@ const createProperty = async (property) => {
         connect: { id: property.hostId },
       },
 
-      amenities: {
-        connect: property.amenities.map((amenity) => ({ id: amenity.id })),
-      },
+      // amenities: {
+      //   connect: property.amenities.map((amenity) => ({ id: amenity.id })),
+      // },
 
-      bookings: {
-        connect: property.bookings.map((booking) => ({ id: booking.id })),
-      },
+      // bookings: {
+      //   connect: property.bookings.map((booking) => ({ id: booking.id })),
+      // },
 
-      reviews: {
-        connect: property.reviews.map((review) => ({ id: review.id })),
-      },
+      // reviews: {
+      //   connect: property.reviews.map((review) => ({ id: review.id })),
+      // },
     },
   });
 

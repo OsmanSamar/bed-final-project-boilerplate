@@ -45,6 +45,8 @@ router.put("/:id", auth, async (req, res, next) => {
   try {
     const { id } = req.params;
     const updatedHost = await updateHostById(id, req.body);
+    console.log("updatedHost:", updatedHost);
+    console.log("updatedHost on line 48:", updatedHost);
 
     if (updatedHost) {
       res.status(200).send({

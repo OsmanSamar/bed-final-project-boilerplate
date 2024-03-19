@@ -8,7 +8,8 @@ const updateUserById = async (id, updatedUser) => {
   });
 
   // Disconnect the Prisma client
-  await prisma.$disconnect();
+
+  // await prisma.$disconnect();
 
   return user.count > 0 ? id : null;
 };

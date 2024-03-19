@@ -46,7 +46,7 @@ async function main() {
         name: host.name,
         email: host.email,
         phoneNumber: host.phoneNumber,
-        pictureUrl: host.pictureUrl,
+        profilePicture: host.profilePicture,
         aboutMe: host.aboutMe,
         listings: {
           connect: (host.listings ?? []).map((propertyId) => ({

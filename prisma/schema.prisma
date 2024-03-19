@@ -11,7 +11,9 @@ generator client {
 datasource db {
   provider = "sqlite"
   // url      = env("DATABASE_URL")
-  url      = "file:./dev.db"
+  url      = "file:./dev.db" 
+  relationMode      = "prisma"
+  
 }
 
 
@@ -26,6 +28,7 @@ model User {
   profilePicture      String
   bookings        Booking[]
   reviews         Review[]
+ 
 }
 
 model Review {
@@ -34,8 +37,11 @@ model Review {
   propertyId      String
   rating          Int
   comment         String
-  user            User @relation(fields: [userId], references: [id])
-  property        Property @relation(fields: [propertyId], references: [id])
+  // user            User @relation(fields: [userId], references: [id])
+   user           User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   @@index([userId])
+// @@index([propertyId])
 }
 
 model Property {
@@ -52,7 +58,7 @@ model Property {
   amenities       Amenity[]    // many-to-many
   bookings        Booking[]   // 1-to-many
   reviews         Review[]   // 1-to-many
-  host            Host     @relation(fields: [hostId], references: [id]) // 1-to-many) with Property
+  host            Host     @relation(fields: [hostId], references: [id], onDelete: Cascade, onUpdate: Cascade) // 1-to-many) with Property
 }
 
 model Host {
@@ -62,7 +68,7 @@ model Host {
   name             String
   email            String
   phoneNumber      String
-  pictureUrl       String
+  profilePicture       String
   aboutMe          String
   listings         Property[] // 1-to-many
   
@@ -77,8 +83,9 @@ model Booking {
   numberOfGuests  Int
   totalPrice      Float
   bookingStatus   String
-  user            User     @relation(fields: [userId], references: [id])
-  property        Property @relation(fields: [propertyId], references: [id])
+  // user            User     @relation(fields: [userId], references: [id])
+  property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+   user           User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Amenity {
