@@ -6,6 +6,7 @@ const deleteBookingById = async (id) => {
   const booking = await prisma.booking.delete({
     where: { id },
   });
+  console.log("createReview function on line 6:", booking);
 
   return booking.count > 0 ? id : null;
 };

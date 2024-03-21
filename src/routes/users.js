@@ -23,6 +23,7 @@ router.post("/", auth, async (req, res, next) => {
   try {
     const { name, password, username, email, phoneNumber, profilePicture } =
       req.body;
+    console.log("Request body:", req.body); // Log the request body
     const newUser = await createUser(
       username,
       name,
@@ -31,8 +32,10 @@ router.post("/", auth, async (req, res, next) => {
       phoneNumber,
       profilePicture
     );
+    console.log("New user:", newUser); // Log the created user
     res.status(201).json(newUser);
   } catch (error) {
+    console.error("Error:", error); // Log any errors
     next(error);
   }
 });

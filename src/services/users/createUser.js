@@ -17,10 +17,14 @@ const createUser = async (
     profilePicture,
   };
 
+  // console.log("New user data:", newUser); // Log the new user data
+  console.log("createUser function on line 11:", newUser);
   const prisma = new PrismaClient();
   const user = await prisma.user.create({
     data: newUser,
   });
+
+  console.log("Created user:", user); // Log the created user
 
   // Disconnect the Prisma client
   await prisma.$disconnect();

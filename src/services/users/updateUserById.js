@@ -11,7 +11,7 @@ const updateUserById = async (id, updatedUser) => {
 
   // await prisma.$disconnect();
 
-  return user.count > 0 ? id : null;
+  return user; //.count > 0 ? id : null;
 };
 
 export default updateUserById;

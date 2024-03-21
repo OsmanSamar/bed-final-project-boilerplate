@@ -40,8 +40,9 @@ model Review {
   // user            User @relation(fields: [userId], references: [id])
    user           User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-//   @@index([userId])
-// @@index([propertyId])
+  
+  @@index([userId])
+  @@index([propertyId])
 }
 
 model Property {

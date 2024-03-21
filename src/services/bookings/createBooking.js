@@ -9,27 +9,40 @@ const createBooking = async (
   userId,
   propertyId
 ) => {
+  //const prisma = new PrismaClient();
+  // const booking = await prisma.booking.create({
+  //   data: {
+  //     checkinDate,
+  //     checkoutDate,
+  //     numberOfGuests,
+  //     totalPrice,
+  //     bookingStatus,
+  //     user: {
+  //       connect: { id: userId },
+  //     },
+
+  //     //property is a single relation
+  //     property: {
+  //       connect: { id: propertyId },
+  //     },
+  //     // property: {
+  //     //   connect: propertyId.map((id) => ({ id })),
+  //     // },
+  //   },
+  // });
+
+  const newBooking = {
+    checkinDate,
+    checkoutDate,
+    numberOfGuests,
+    totalPrice,
+    bookingStatus,
+    userId,
+    propertyId,
+  };
   const prisma = new PrismaClient();
-
   const booking = await prisma.booking.create({
-    data: {
-      checkinDate,
-      checkoutDate,
-      numberOfGuests,
-      totalPrice,
-      bookingStatus,
-      user: {
-        connect: { id: userId },
-      },
-
-      //property is a single relation
-      property: {
-        connect: { id: propertyId },
-      },
-      // property: {
-      //   connect: propertyId.map((id) => ({ id })),
-      // },
-    },
+    data: newBooking,
   });
 
   return booking;
