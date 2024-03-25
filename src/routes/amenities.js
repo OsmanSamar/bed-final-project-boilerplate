@@ -68,6 +68,7 @@ router.delete("/:id", auth, async (req, res, next) => {
     if (deletedAmenityId !== null) {
       res.status(200).send({
         message: `Amenity with id ${id} successfully deleted`,
+        deletedAmenityId,
       });
     } else {
       res.status(404).json({

@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const deleteAmenityById = async (id) => {
   const prisma = new PrismaClient();
-  const deletedAmenity = await prisma.amenity.delete({
+  const deletedAmenity = await prisma.amenity.deleteMany({
     where: { id },
   });
 

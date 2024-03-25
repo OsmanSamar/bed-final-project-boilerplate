@@ -1,3 +1,6 @@
+//Logging: Middleware can log request details,
+//such as the method, URL, headers, and body, for debugging or auditing purposes.
+
 import logger from "../utils/log.js";
 
 const log = (req, res, next) => {

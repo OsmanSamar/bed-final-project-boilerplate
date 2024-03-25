@@ -1,3 +1,6 @@
+//Authentication and Authorization: Middleware can verify user authentication tokens,
+//check user permissions, and restrict access to certain routes or resources.
+
 import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
