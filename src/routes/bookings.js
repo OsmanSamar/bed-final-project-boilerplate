@@ -1,5 +1,6 @@
 import { Router } from "express";
-import getBookings from "../services/bookings/GetBookings.js";
+//import getBookings from "../services/bookings/GetBookings.js";
+import getBookings from "../services/bookings/getBookings.js";
 import createBooking from "../services/bookings/createBooking.js";
 import getBookingById from "../services/bookings/getBookingById.js";
 import deleteBookingById from "../services/bookings/deleteBookingById.js";

@@ -60,6 +60,7 @@ model Property {
   bookings        Booking[]   // 1-to-many
   reviews         Review[]   // 1-to-many
   host            Host     @relation(fields: [hostId], references: [id], onDelete: Cascade, onUpdate: Cascade) // 1-to-many) with Property
+  @@index([hostId]) //To help speed up queries that retrieve properties associated with a specific host.
 }
 
 model Host {
@@ -87,6 +88,9 @@ model Booking {
   // user            User     @relation(fields: [userId], references: [id])
   property        Property @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
    user           User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+   @@index([propertyId])
+   @@index([userId])
 }
 
 model Amenity {

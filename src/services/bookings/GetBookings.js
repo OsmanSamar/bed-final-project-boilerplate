@@ -7,12 +7,16 @@ const getBookings = async (checkinDate, bookingStatus) => {
       checkinDate: {
         contains: checkinDate,
       },
-
       bookingStatus: {
         contains: bookingStatus,
       },
+      property: {
+        // Check if the property ID is not null
+        id: {
+          not: "",
+        },
+      },
     },
-    //I added the include option to retrieve related user and property information when fetching bookings.
     include: {
       user: true,
       property: true,

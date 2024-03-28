@@ -21,7 +21,7 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", auth, async (req, res, next) => {
   try {
-    const { name, password, username, email, phoneNumber, profilePicture } =
+    const { username, name, password, email, phoneNumber, profilePicture } =
       req.body;
     console.log("Request body:", req.body); // Log the request body
     const newUser = await createUser(

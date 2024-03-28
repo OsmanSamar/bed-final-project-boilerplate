@@ -19,7 +19,9 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", auth, async (req, res, next) => {
   try {
-    const newAmenity = await createAmenity(req.body);
+    // const newAmenity = await createAmenity(req.body);
+    const { name } = req.body;
+    const newAmenity = await createAmenity({ name });
     res.status(201).json(newAmenity);
   } catch (error) {
     next(error);
