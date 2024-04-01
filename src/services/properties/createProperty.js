@@ -1,13 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 
 const createProperty = async (property) => {
-  const prisma = new PrismaClient();
-  console.log("createProperty function on line 5:", property);
+  // Check if all required fields are provided
+  if (
+    !property.title ||
+    !property.description ||
+    !property.location ||
+    !property.pricePerNight ||
+    !property.bedroomCount ||
+    !property.bathRoomCount ||
+    !property.maxGuestCount ||
+    !property.rating ||
+    !property.hostId
+  ) {
+    throw new Error("All required fields must be provided.");
+  }
 
-  // To check if property.hostId is defined before proceeding
-  // if (!property.hostId) {
-  //   throw new Error("Property host ID is undefined");
-  // }
+  const prisma = new PrismaClient();
+
+  console.log("createProperty function on line 5:", property);
 
   const createdProperty = await prisma.property.create({
     // where: { id: property.id },

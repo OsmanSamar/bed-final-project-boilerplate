@@ -9,6 +9,18 @@ const createBooking = async (
   userId,
   propertyId
 ) => {
+  // Check if all required fields are provided
+  if (
+    !checkinDate ||
+    !checkoutDate ||
+    !numberOfGuests ||
+    !totalPrice ||
+    !bookingStatus ||
+    !userId ||
+    !propertyId
+  ) {
+    throw new Error("All required fields must be provided.");
+  }
   //const prisma = new PrismaClient();
   // const booking = await prisma.booking.create({
   //   data: {

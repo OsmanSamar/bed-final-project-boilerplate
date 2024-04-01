@@ -17,8 +17,21 @@ const createUser = async (
     profilePicture,
   };
 
+  // Check if all required fields are provided
+  if (
+    !username ||
+    !name ||
+    !password ||
+    !email ||
+    !phoneNumber ||
+    !profilePicture
+  ) {
+    throw new Error("All required fields must be provided.");
+  }
+
   // console.log("New user data:", newUser); // Log the new user data
   console.log("createUser function on line 11:", newUser);
+
   const prisma = new PrismaClient();
   try {
     const user = await prisma.user.create({
