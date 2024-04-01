@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const createHost = async (host) => {
   const prisma = new PrismaClient();
-  console.log("createHost function on line 5:", host);
+  console.log("createHost function on line 3:", host);
   const createdHost = await prisma.host.create({
     // where: { id: host.id },
     // update: {},
