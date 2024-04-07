@@ -26,7 +26,9 @@ const createUser = async (
     !phoneNumber ||
     !profilePicture
   ) {
-    throw new Error("All required fields must be provided.");
+    const errorMessage = "All required fields must be provided.";
+    console.error(errorMessage);
+    return { error: errorMessage, status: 400 }; // Return error message with status code 400
   }
 
   // console.log("New user data:", newUser); // Log the new user data
